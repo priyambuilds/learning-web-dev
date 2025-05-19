@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Specificity & Cascade</title>
+    <style>
+        /* the specificity of this selector is 1*/
+        h1 {
+            color: red;
+        }
+        /* the specificity of this selector is 10 */
+        .yellow {
+            color: yellow;
+        }
+        /* the specificity of this selector is 10 */
+        .cred {
+            color: red;
+        }
+        /* the specificity of this selector is 10 */
+        .cpurple {
+            color: purple; /* This will be applied because it is the last one in the cascade */
+        }
+        /* the specificity of this selector is 10 */
+        /* data-x = a means this rule will apply to elements with the attribute data-x set to "a" */
+        [data-x] {
+            background-color: green;
+        }
+        /* the specificity of this selector is 10+1 = 11 */
+        h1.yellow{
+            color: purple;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1 class="yellow cred cpurple" data-x ="a">CSS Specificity & Cascade</h1>
+    </div>
+</body>
+</html>

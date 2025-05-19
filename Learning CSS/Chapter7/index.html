@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            box-sizing: border-box;
+            border: 2px solid black;
+            width: 80vh; /*vh is viewport height*/
+            margin: auto;
+            background-color: aqua
+        }
+        .container{
+            box-sizing: border-box;
+            border: 2px solid black;
+            width: 80vw; /*vw is viewport width*/
+            height: 80vh; /*vh is viewport height*/
+            margin: auto;
+            background-color: aqua;
+            min-height: auto;
+        }
+        .container p{
+            font-size: 2em; /*em is relative to the font size of the element*/
+            /*rem is relative to the font size of the root element*/
+        }
+        .mycont{
+            box-sizing: border-box;
+            border: 2px solid black;
+            margin: auto;
+            background-color: brown;
+            color: aliceblue;
+            font-size: 22px;
+            width: 80vmin
+            /*vmin is the smaller of viewport width and height*/
+            /*vmax is the larger of viewport width and height*/
+            /*vmin and vmax are relative to the viewport*/
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        this is a box
+    </div>
+    <div class="container">
+        <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur ab quis adipisci nam error corrupti perferendis libero quidem architecto voluptatem iste quasi enim quaerat nemo, blanditiis sint molestias autem dicta ducimus magnam ex! Ipsam, rem. Veniam, veritatis nesciunt, amet perferendis totam accusamus rem dolore natus ipsam nulla tempore vero. Aut corrupti animi exercitationem est?
+            
+        </p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste non dolorum atque reprehenderit magnam, minus ab minima perferendis error dolorem praesentium ipsa nulla harum enim, natus beatae, ducimus distinctio maiores totam? Dolorem quae maxime saepe in libero autem ullam, tenetur, dolor odit, molestias quia? Minus dolor provident, fugit labore blanditiis sint incidunt quisquam amet et ea aliquid inventore molestiae vitae illo necessitatibus dolore aperiam molestias sunt perferendis!
+    </div>
+    <div class="mycont">
+        this is my container
+    </div>
+</body>
+</html>

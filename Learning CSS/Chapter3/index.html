@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selectors</title>
+    <style>
+        /* element selector */
+        div {
+            background-color: lightblue;
+            padding: 20px;
+            border: 2px solid blue;
+        }
+        /* class selector */
+        .red {
+            background-color: red;
+            padding: 20px;
+            border: 2px solid darkred;
+        }
+        /* id selector */
+        #green {
+            background-color: green;
+            padding: 20px;
+            border: 2px solid darkgreen;
+        }
+
+        /* child selector */
+        div > p {
+            color: rgb(196, 36, 36);
+            font-weight: bold;
+        }
+        /* descendant selector */
+        div h1 {
+            color: rgb(28, 238, 151);
+            font-weight: bold;
+        }
+        /*universal selector*/
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        /*pseudo class selector*/
+        div:hover {
+            background-color: yellow;
+        }
+        p:first-child {
+            color: rgb(255, 188, 5);
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        the drawback of element selector is that it applies to all elements of that type in the document, which can lead to unintended styling if not used carefully. For example, if you have multiple div> elements, they will all receive the same styles defined for the div selector.
+    </div>
+    <div class="red">
+        feature of class selector is that it allows you to apply the same styles to multiple elements by assigning them the same class name. This can be very useful for grouping elements that share common styles. For example, you can have multiple elements with the class name "red" and they will all receive the same styles defined for the .red class selector.
+    </div>
+    <div id="green">
+        feature of id selector is that it allows you to apply styles to a single, unique element on the page. This can be useful for styling specific elements without affecting others. For example, you can have an element with the id "green" and it will receive the styles defined for the #green id selector.
+    </div>
+    <div>
+        <p>
+            skdmmkd dk kkos okfskf ks
+        </p>
+        <h1>
+            skdmmkd dk kkos okfskf ks
+        </h1>
+    </div>
+    <div class="selector">
+        <p>
+            The child selector (>)
+            <p>
+                ades tf r f
+            </p>
+        </p>
+        <p>
+            The descendant selector
+        </p>
+    </div>
+</body>
+</html>

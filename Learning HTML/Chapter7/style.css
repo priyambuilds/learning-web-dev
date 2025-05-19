@@ -1,0 +1,7 @@
+.red{
+    color: white; /* this way we can target a class*/
+}
+
+#main{
+    background-color: red; /* this way we can target an id*/
+}

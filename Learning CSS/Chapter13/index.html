@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Variables</title>
+    <style>
+        :root {
+            --navbar-bg-color: #333;
+            --container-bg-color: #f4f4f4;
+            --text-color: #fff;
+            --font-family: Arial, sans-serif;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: var(--navbar-bg-color, #333);
+            padding: 10px;
+            color: var(--text-color, #fff);
+            font-family: var(--font-family, Arial, sans-serif);
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+        }
+        ul li {
+            list-style: none;
+        }
+        .container {
+            background-color: var(--container-bg-color, #f4f4f4);
+            padding: 20px;
+            margin: 20px;
+            font-family: var(--font-family, Arial, sans-serif);
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li>home</li>
+            <li>about</li>
+            <li>contact</li>
+            <li>services</li>
+            <li>portfolio</li>
+        </ul>
+    </div>
+
+    <div class="container">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio tenetur delectus rerum accusamus alias, molestias veniam adipisci saepe minus neque, praesentium libero reprehenderit placeat voluptatum sed, dolorem at commodi magnam maxime voluptatibus. Neque nobis delectus accusamus doloremque quos rem illo nemo, temporibus, nostrum veniam deserunt.
+    </div>
+</body>
+</html>

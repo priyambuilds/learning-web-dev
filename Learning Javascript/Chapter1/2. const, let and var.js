@@ -38,3 +38,8 @@ const c = "harry";
     console.log(c); // output this
 }
 console.log(c); // output harry
+
+// const cannot be reassigned
+const d = "harry";
+d = "this"; 
+console.log(d); // error

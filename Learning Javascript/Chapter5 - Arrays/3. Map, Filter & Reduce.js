@@ -14,6 +14,7 @@ let a2 = arr2.filter((a)=>{
     return a<10
 })
 console.log(a2) // prints [0, 3, 5] 
+
 // Array reduce method
 // reduce reduces an array to a single value by adding or any other operation, all the elements one by one 
 let arr3 = [1, 2, 3, 5, 2, 1]

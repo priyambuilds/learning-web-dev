@@ -4,47 +4,60 @@
 
 let userScore = 0;
 let computerScore = 0;
+const choices = ["S", "W", "G"];
+const rules = {
+    S: "W", // Snake drinks water
+    W: "G", // Water disables gun
+    G: "S"  // Gun kills snake
+};
 
 for (let i = 1; i <= 3; i++) {
-    let user = prompt("Round " + i + ": Enter S (Snake), W (Water), or G (Gun):");
+    let user = prompt(`Round ${i}:\nEnter S (Snake), W (Water), or G (Gun):`); // Prompt user for input
+    // Handle cancel or empty input
     if (!user) {
         alert("Game cancelled.");
         break;
     }
-    user = user.trim().toUpperCase();
-    if (!["S", "W", "G"].includes(user)) {
-        alert("Invalid input. Please enter S, W, or G.");
+
+    // Validate user input
+    user = user.trim().toUpperCase(); // Normalize input to uppercase and remove extra spaces
+    if (!choices.includes(user)) {
+        alert("Invalid input. Please enter only S, W, or G.");
         i--; // Don't count invalid input as a round
         continue;
     }
-
-    let cpu = ["S", "W", "G"][Math.floor(Math.random() * 3)];
-    alert("Computer chose: " + cpu);
-
+    // Computer's choice
+    let cpu = choices[Math.floor(Math.random() * 3)];
+    let roundMessage = `You chose ${user}, Computer chose ${cpu}.\n`;
+    // Determine winner
     if (user === cpu) {
-        alert("It's a tie!");
-    } else if (
-        (user === "S" && cpu === "W") ||
-        (user === "W" && cpu === "G") ||
-        (user === "G" && cpu === "S")
-    ) {
-        alert("You win this round!");
+        roundMessage += "It's a tie!";
+    } else if (rules[user] === cpu) {
         userScore++;
+        roundMessage += "You win this round!";
     } else {
-        alert("You lose this round!");
         computerScore++;
+        roundMessage += "You lose this round!";
     }
+    // Display round result and score
+    roundMessage += `\n\nScore: You ${userScore} - Computer ${computerScore}`;
+    alert(roundMessage);
 
-    alert(`Score: You ${userScore} - Computer ${computerScore}`);
-
-    // Early win/loss check
     if (userScore === 2) {
-        alert("Congratulations! You win the game!");
+        alert("🎉 Congratulations! You win the game!");
         break;
     } else if (computerScore === 2) {
-        alert("Sorry! You lose the game.");
+        alert("😢 Sorry! You lose the game.");
         break;
+    }
+
+    if (i < 3) {
+        const next = confirm("Ready for the next round?");
+        if (!next) {
+            alert("Game exited.");
+            break;
+        }
     }
 }
 
-alert("Game over!\nFinal Score:\nYou: " + userScore + "\nComputer: " + computerScore);
+alert(`Game Over!\nFinal Score:\nYou: ${userScore}\nComputer: ${computerScore}`);

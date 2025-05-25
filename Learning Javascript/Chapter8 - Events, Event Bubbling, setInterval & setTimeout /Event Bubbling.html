@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .child{
+            background-color: red;
+            display: flex;
+            margin: 10px;
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .chiildcontainer{
+            background-color: green;
+            display: flex;
+            margin: 20px;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .container{
+            background-color: blue;
+            display: block;
+            margin: 10px;
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="childcontainer">
+            <div class="child">
+                Event bubbling means that when an event occurs on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.
+                Another way to understand this would be - You live in a state, then you automatically live in the country, then you automatically live in the continent.
+            </div>
+        </span>
+    </div>
+    <script>
+        document.querySelector(".child").addEventListener("click", ()=>{
+        e.stopPropagation() // this will stop the event from bubbling up
+            alert("Child was clicked")
+        })
+        document.querySelector(".childcontainer").addEventListener("click", ()=>{
+        alert("Childcontainer was clicked")
+        })
+        document.querySelector(".container").addEventListener("click", ()=>{
+        alert("Container was clicked")
+        })
+    </script>
+</body>
+</html>

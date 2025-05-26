@@ -4,8 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Persistent ToDo List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h1 {
+            text-align: center;
+        }
+        #items {
+            margin-bottom: 20px;
+        }
+        #items div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        #items button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #itemInput {
+            width: calc(100% - 60px);
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 50px;
+            text-align: center;
+            margin-left: 10px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        button:hover {
+            background-color: #45a049;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        #items button:hover {
+            background-color: #ff1a1a;
+            color: white;
+            transition: background-color 0.3s ease;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+            margin-left: 10px;
+            font-size: 16px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        #main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    
+    <div id="main-container">
+        <div id="container">
+            <h1>
+            TODO LIST
+        </h1>
+        <h2>
+            Items
+        </h2>
+        <div id="items"></div>
+        <h2>
+            Add Item
+        </h2>
+        <div id="input-container">
+            <input type="text" id="itemInput" placeholder="Enter item">
+            <button onclick="addItem()">Add</button>
+        </div>
+        <script src="script.js"></script>
+    </div>
 </body>
 </html>

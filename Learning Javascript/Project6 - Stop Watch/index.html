@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #container{
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #time{
+            font-size: 48px;
+            margin: 20px 0;
+        }
+        #buttons button{
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #laps {
+            margin-top: 20px;
+            text-align: left;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        #time.running {
+            color: green;
+        }
+        #time.stopped {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Stop Watch</h1>
+        <h1 id="time" class="stopped">00:00:00</h1>
+        <div id="buttons">
+            <button id="start" onclick="startclock()">Start</button>
+            <button id="stop" onclick="stopclock()" disabled>Stop</button>
+            <button id="reset" onclick="resetclock()">Reset</button>
+            <button id="lap" onclick="lapclock()" disabled>Lap</button>
+        </div>
+        <div id="laps"></div>
+        <script src="script.js"></script>
+    </div>
+</body>
+</html>

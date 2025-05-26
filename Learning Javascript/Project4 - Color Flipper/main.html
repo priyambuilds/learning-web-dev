@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Flipper</title>
+    <style>
+        body{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-align: center;
+        }
+        .btn{
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid black;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            height: 50px;
+            width: 150px;
+        }
+        #Gbtn{
+            background-color: green;
+        }
+        #Rbtn{
+            background-color: red;
+        }
+        #Bbtn{
+            background-color: blue;
+        }
+        #Ranbtn{
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        Color Flipper
+    </h1>
+    <div>
+        <button class="btn" id="Gbtn" onclick="setColor('green')">Green</button>
+        <button class="btn" id="Rbtn" onclick="setColor('red')">Red</button>
+        <button class="btn" id="Bbtn" onclick="setColor('blue')">Blue</button>
+        <button class="btn" id="Ranbtn" onclick="randomColor('')">Random</button>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>

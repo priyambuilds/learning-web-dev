@@ -16,13 +16,16 @@
         }
         #container {
             background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            padding: 24px 20px 20px 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);
+            width: 340px;
         }
         h1 {
             text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            color: #333;
         }
         #items {
             margin-bottom: 20px;
@@ -31,7 +34,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            background: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            border-radius: 7px;
+            padding: 7px 10px;
+            transition: box-shadow 0.2s;
+        }
+        #items div:hover {
+            box-shadow: 0 2px 8px rgba(76,175,80,0.08);
+        }
+        #items input[type="text"] {
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            color: #333;
+            width: 100%;
+            outline: none;
         }
         #items button {
             background-color: #ff4d4d;
@@ -40,84 +59,83 @@
             padding: 5px 10px;
             cursor: pointer;
             border-radius: 5px;
-        }
-        #itemInput {
-            width: calc(100% - 60px);
-            padding: 10px;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 50px;
-            text-align: center;
-            margin-left: 10px;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-            display: inline-block;
-            vertical-align: middle;
-        }
-        button:hover {
-            background-color: #45a049;
-            color: white;
-            transition: background-color 0.3s ease;
+            margin-left: 4px;
+            font-size: 14px;
+            transition: background-color 0.2s;
         }
         #items button:hover {
             background-color: #ff1a1a;
-            color: white;
-            transition: background-color 0.3s ease;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 5px 10px;
-            margin-left: 10px;
-            font-size: 16px;
-            display: inline-block;
-            vertical-align: middle;
         }
-        #main-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+        #items button.edit-btn {
+            background-color: #2196F3;
+        }
+        #items button.edit-btn:hover {
+            background-color: #1976D2;
+        }
+        #itemInput {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 16px;
             box-sizing: border-box;
         }
         #input-container {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: stretch;
             margin-top: 10px;
             margin-bottom: 20px;
+        }
+        #input-container button {
+            width: 100%;
+            margin: 0;
+            margin-top: 7px;
+            background-color: #4CAF50;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 7px;
+        }
+        #input-container button:hover {
+            background-color: #388e3c;
+        }
+        #clearAllBtn {
+            width: 100%;
+            background-color: #ff4d4d;
+            margin-top: 10px;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 7px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #clearAllBtn:hover {
+            background-color: #ff1a1a;
+        }
+        .empty-msg {
+            color: #888;
+            text-align: center;
+            margin: 16px 0;
         }
     </style>
 </head>
 <body>
     <div id="main-container">
         <div id="container">
-            <h1>
-            TODO LIST
-        </h1>
-        <h2>
-            Items
-        </h2>
-        <div id="items"></div>
-        <h2>
-            Add Item
-        </h2>
-        <div id="input-container">
-            <input type="text" id="itemInput" placeholder="Enter item">
-            <button onclick="addItem()">Add</button>
+            <h1>TODO LIST</h1>
+            <h2 style="margin-bottom: 8px; color: #444; font-size: 20px;">Items</h2>
+            <div id="items"></div>
+            <h2 style="margin-bottom: 8px; color: #444; font-size: 20px;">Add Item</h2>
+            <div id="input-container">
+                <input type="text" id="itemInput" placeholder="Enter item">
+                <button onclick="addItem()">Add Item</button>
+            </div>
+            <button id="clearAllBtn" onclick="clearAll()">Clear All</button>
+            <script src="script.js"></script>
         </div>
-        <script src="script.js"></script>
     </div>
 </body>
 </html>

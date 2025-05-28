@@ -1,69 +1,92 @@
-const container = document.querySelector('.container')
-const keys = container.querySelector('.btns')
-const display = container.querySelector('.display')
+const container = document.querySelector('.container');
+const keys = container.querySelector('.btns');
+const display = container.querySelector('.display h1');
+
+// If the previousKeyType is an operator, we want to replace the displayed number with clicked number.
 keys.addEventListener('click', e => {
-    if (e.target.matches('button')) {
-        const key = e.target
-        const action = key.dataset.action
-        const keyContent = key.textContent
-        const displayedNum = display.textContent
+  if (e.target.matches('button')) {
+    // key is a variable that refers to the button element that was clicked by the user.
+    const key = e.target; // e.target is the actual HTML element that triggered the event.
     
-    // If the calculator shows 0, we want to replace the calculator’s display with the clicked key. We can do so by replacing the display’s textContent property.
+    // action is set to key.dataset.action, which gets the value of the data-action attribute from the button.
+    const action = key.dataset.action;
+    const keyContent = key.textContent;
+    const displayedNum = display.textContent;
+    const previousKeyType = container.dataset.previousKeyType;
+
+    // Number key logic
     if (!action) {
-        if (displayedNum === '0') {
-            display.textContent = keyContent
-        } else {
-            display.textContent = displayedNum + keyContent // If the calculator shows a non-zero number, we want to append the clicked key to the displayed number. To append a number, we concatenate a string.
-        }
-        if (action === 'decimal') {
-            display.textContent = displayedNum + '.'
-        }
-    }  
-    //If a person hits an operator key, the operator should be highlighted so Mary knows the operator is active.
-    if (
-        action === 'add' ||
-        action === 'subtract' ||
-        action === 'multiply' ||
-        action === 'divide'
-    ) {
-        key.classList.add('is-depressed')
+      if (displayedNum === '0' || previousKeyType === 'operator') {
+        display.textContent = keyContent;
+      } else {
+        display.textContent = displayedNum + keyContent; // Concatenate number
+      }
+      calculator.dataset.previousKey = 'number'
     }
-    // To release the pressed state, we remove the is-depressed class from all keys through a forEach loop:
-    
-    if (!action) {
-        console.log('number key!')
+
+    // Decimal key
+    if (action === 'decimal') {
+      // Do nothing if string has a dot already.
+      if (!displayedNum.includes('.')) {
+        display.textContent = displayedNum + '.';
+      }
+      container.dataset.previousKeyType = 'decimal';
+    } else if (previousKeyType === 'operator') {
+      display.textContent = '0.';
     }
-    // If the key has a data-action that is either add, subtract, multiply or divide, we know the key is an operator.
+
+    // Operator keys
     if (
       action === 'add' ||
       action === 'subtract' ||
       action === 'multiply' ||
       action === 'divide'
     ) {
-      console.log('operator key!')
+      container.dataset.previousKeyType = 'operator';
+      container.dataset.firstValue = displayedNum;
+      container.dataset.operator = action;
+
+      const firstValue = calculator.dataset.firstValue
+      const operator = calculator.dataset.operator
+      const secondValue = displayedNum
+      // Note: It's sufficient to check for firstValue and operator because secondValue always exists
+      if (firstValue && operator && previousKeyType != 'operator') {
+        display.textContent = calculate(firstValue, operator, secondValue)
+      }
     }
 
-    // following the same logic
-    if (action === 'decimal') {
-      console.log('decimal key!')
-    }
-
+    // Clear key
     if (action === 'clear') {
-      console.log('clear key!')
+      calculator.dataset.previousKeyType = 'clear'
     }
 
+    // Equals key
     if (action === 'calculate') {
-      console.log('equal key!')
+      const firstValue = container.dataset.firstValue
+      const operator = container.dataset.operator
+      const secondValue = displayedNum
+      
+      display.textContent = calculate(firstValue, operator, secondValue)
+      calculator.dataset.previousKeyType = 'calculate'
     }
+
+    // Backspace key
     if (action === 'backspace') {
-      console.log('backspace key!')
+      calculator.dataset.previousKeyType = 'backspace'
     }
-    // At this point, you should get a console.log response from every calculator key.
+  }
+});
 
+const calculate = (n1, operator, n2) => {
+  let result = ''
+  if (operator === 'add') {
+    result = parseFloat(n1) + parseFloat(n2)
+  } else if (operator === 'subtract') {
+    result = parseFloat(n1) - parseFloat(n2)
+  } else if (operator === 'multiply') {
+    result = parseFloat(n1) * parseFloat(n2)
+  } else if (operator === 'divide') {
+    result = parseFloat(n1) / parseFloat(n2)
+  }
+  return result
 }
-})
-// Next, we can use the data-action attribute to determine the type of key that is clicked.
-
-// If the key does not have a data-action attribute, it must be a number key.
-
-

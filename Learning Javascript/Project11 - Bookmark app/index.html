@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bookmarks</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Site Bookmarker</h1>
+    <div class="container">
+        <!-- Form to enter the details of the site -->
+         <form class= "form"action="#">
+            <div class="input-field">
+                <label for="site_name">Name:</label>
+                <input name="site_name" type="text" placeholder="enter site name">
+            </div>
+            <div class="input-field">
+                <label for="url">URL:</label>
+                <input name ="url" type="text" placeholder="https://www.example.com">
+            </div>
+            <button class="save_button">Save</button>
+         </form>
+         <!-- section where bookmarks will be displayed   -->
+          <h2>Saved Bookmarks</h2>
+          <div class="bookmarks"></div>
+    </div>
+    <!-- link the JavaScript file here -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -185,6 +185,7 @@ h1{
     font-size: 16px;
     cursor: pointer;
 }
+
 #todo-list li button:hover{
     color: #cc0000;
     transition: color 0.3s ease;

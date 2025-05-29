@@ -38,3 +38,27 @@ addBtn.addEventListener('click', ()=>{
     renderTasks();
 })
 // Step 3: Create a function to render tasks
+function renderTasks() {
+    // Step 1: Clear the current task list
+    todoList.innerHTML = '';
+    // Step 2: Filter tasks based on current tab
+    let filteredTasks = tasks;
+    if (currentTab === 'active') {
+        filteredTasks = tasks.filter(task => !task.completed);
+    } else if (currentTab === 'completed') {
+        filteredTasks = tasks.filter(task => task.completed)
+    }
+    // Step 3: Loop through each task and create a list item
+    filteredTasks.forEach(task => {
+        const li = document.createElement('li'); // Create <li> element
+        li.innerHTML = `
+            <input type="checkbox" class="toggle" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
+            <span class="task-text ${task.completed ? 'completed' : ''}" >${task.text}</span>
+            <button class="edit-btn" data-id="${task.id}">Edit</button>
+            <button calss="delete-btn" data-id="${task.id}">Delete</button>
+        `;
+         todoList.appendChild(li); // Add to the <ul>
+    });
+    // Step 4: Update the task count
+    updateTaskCount();
+}

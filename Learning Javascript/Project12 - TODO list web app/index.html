@@ -4,8 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo List</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="container">
+        <h1>ToDo List</h1>
+        <div class="input-section">
+            <input type="text" id="todo-input" placeholder="WHat do you want to do today?">
+            <button id="add-btn">Add</button>
+        </div>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="all">All</button>
+            <button class="tab-btn" data-tab="active">Active</button>
+            <button class="tab-btn" data-tab="completed">Completed</button>
+        </div>
+        <ul id="todo-list">
+            <!-- JavaScript will insert <li> items here -->
+        </ul>
+            <!-- Footer with stats -->
+        <div class="footer">
+            <p id="task-count">Total: 0 | Active: 0 | Completed: 0</p>
+        </div>
+    </div>
 </body>
 </html>

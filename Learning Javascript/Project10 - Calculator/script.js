@@ -2,91 +2,100 @@ const container = document.querySelector('.container');
 const keys = container.querySelector('.btns');
 const display = container.querySelector('.display h1');
 
-// If the previousKeyType is an operator, we want to replace the displayed number with clicked number.
-keys.addEventListener('click', e => {
-  if (e.target.matches('button')) {
-    // key is a variable that refers to the button element that was clicked by the user.
-    const key = e.target; // e.target is the actual HTML element that triggered the event.
-    
-    // action is set to key.dataset.action, which gets the value of the data-action attribute from the button.
-    const action = key.dataset.action;
-    const keyContent = key.textContent;
-    const displayedNum = display.textContent;
-    const previousKeyType = container.dataset.previousKeyType;
+const calculate = (n1, operator, n2) => {
+  const num1 = parseFloat(n1);
+  const num2 = parseFloat(n2);
+  if (operator === 'add') return num1 + num2;
+  if (operator === 'subtract') return num1 - num2;
+  if (operator === 'multiply') return num1 * num2;
+  if (operator === 'divide') return num2 !== 0 ? num1 / num2 : 'Error';
+  return n2;
+};
 
-    // Number key logic
-    if (!action) {
-      if (displayedNum === '0' || previousKeyType === 'operator') {
-        display.textContent = keyContent;
-      } else {
-        display.textContent = displayedNum + keyContent; // Concatenate number
-      }
-      calculator.dataset.previousKey = 'number'
+keys.addEventListener('click', (e) => {
+  if (!e.target.matches('button')) return;
+
+  const key = e.target;
+  const action = key.dataset.action;
+  const keyContent = key.textContent;
+  const displayedNum = display.textContent;
+  const prevKeyType = container.dataset.previousKeyType;
+
+  // ========== NUMBER ==========
+  if (!action) {
+    if (displayedNum === '0' || prevKeyType === 'operator' || prevKeyType === 'calculate') {
+      display.textContent = keyContent;
+    } else {
+      display.textContent += keyContent;
     }
+    container.dataset.previousKeyType = 'number';
+  }
 
-    // Decimal key
-    if (action === 'decimal') {
-      // Do nothing if string has a dot already.
-      if (!displayedNum.includes('.')) {
-        display.textContent = displayedNum + '.';
-      }
-      container.dataset.previousKeyType = 'decimal';
-    } else if (previousKeyType === 'operator') {
+  // ========== DECIMAL ==========
+  if (action === 'decimal') {
+    if (prevKeyType === 'operator' || prevKeyType === 'calculate') {
       display.textContent = '0.';
+    } else if (!displayedNum.includes('.')) {
+      display.textContent += '.';
+    }
+    container.dataset.previousKeyType = 'decimal';
+  }
+
+  // ========== OPERATOR ==========
+  if (['add', 'subtract', 'multiply', 'divide'].includes(action)) {
+    const firstValue = container.dataset.firstValue;
+    const operator = container.dataset.operator;
+    const currentValue = displayedNum;
+
+    if (firstValue && operator && prevKeyType !== 'operator' && prevKeyType !== 'calculate') {
+      const result = calculate(firstValue, operator, currentValue);
+      display.textContent = result;
+      container.dataset.firstValue = result;
+    } else {
+      container.dataset.firstValue = currentValue;
     }
 
-    // Operator keys
-    if (
-      action === 'add' ||
-      action === 'subtract' ||
-      action === 'multiply' ||
-      action === 'divide'
-    ) {
-      container.dataset.previousKeyType = 'operator';
-      container.dataset.firstValue = displayedNum;
-      container.dataset.operator = action;
+    container.dataset.operator = action;
+    container.dataset.previousKeyType = 'operator';
+  }
 
-      const firstValue = calculator.dataset.firstValue
-      const operator = calculator.dataset.operator
-      const secondValue = displayedNum
-      // Note: It's sufficient to check for firstValue and operator because secondValue always exists
-      if (firstValue && operator && previousKeyType != 'operator') {
-        display.textContent = calculate(firstValue, operator, secondValue)
-      }
+  // ========== CALCULATE ==========
+  if (action === 'calculate') {
+    let firstValue = container.dataset.firstValue;
+    const operator = container.dataset.operator;
+    let secondValue = displayedNum;
+
+    if (!firstValue || !operator) return;
+
+    if (prevKeyType === 'calculate') {
+      firstValue = displayedNum;
+      secondValue = container.dataset.modValue;
     }
 
-    // Clear key
-    if (action === 'clear') {
-      calculator.dataset.previousKeyType = 'clear'
-    }
+    const result = calculate(firstValue, operator, secondValue);
+    display.textContent = result;
 
-    // Equals key
-    if (action === 'calculate') {
-      const firstValue = container.dataset.firstValue
-      const operator = container.dataset.operator
-      const secondValue = displayedNum
-      
-      display.textContent = calculate(firstValue, operator, secondValue)
-      calculator.dataset.previousKeyType = 'calculate'
-    }
+    container.dataset.firstValue = null;
+    container.dataset.modValue = secondValue;
+    container.dataset.previousKeyType = 'calculate';
+  }
 
-    // Backspace key
-    if (action === 'backspace') {
-      calculator.dataset.previousKeyType = 'backspace'
+  // ========== CLEAR ==========
+  if (action === 'clear') {
+    display.textContent = '0';
+    container.dataset.firstValue = '';
+    container.dataset.modValue = '';
+    container.dataset.operator = '';
+    container.dataset.previousKeyType = '';
+  }
+
+  // ========== BACKSPACE ==========
+  if (action === 'backspace') {
+    if (displayedNum.length === 1 || displayedNum === 'Error') {
+      display.textContent = '0';
+    } else {
+      display.textContent = displayedNum.slice(0, -1);
     }
+    container.dataset.previousKeyType = 'backspace';
   }
 });
-
-const calculate = (n1, operator, n2) => {
-  let result = ''
-  if (operator === 'add') {
-    result = parseFloat(n1) + parseFloat(n2)
-  } else if (operator === 'subtract') {
-    result = parseFloat(n1) - parseFloat(n2)
-  } else if (operator === 'multiply') {
-    result = parseFloat(n1) * parseFloat(n2)
-  } else if (operator === 'divide') {
-    result = parseFloat(n1) / parseFloat(n2)
-  }
-  return result
-}

@@ -12,9 +12,9 @@ let taskIdCounter = 0;      // This will help assign a unique ID to each task
 
 addBtn.addEventListener('click', ()=>{
     // Get input value and remove leading/trailing spaces
-    const Text = input.value.trim();
+    const text = input.value.trim();
     // Step 1: Ignore if the input is empty
-    if (Text === '') return;
+    if (text === '') return;
     // Step 2: Create a task object
     // We’ll store each task as an object with the following structure:
     const newTask = {
@@ -47,14 +47,21 @@ function renderTasks() {
             <input type="checkbox" class="toggle" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
             <span class="task-text ${task.completed ? 'completed' : ''}" >${task.text}</span>
             <button class="edit-btn" data-id="${task.id}">Edit</button>
-            <button calss="delete-btn" data-id="${task.id}">Delete</button>
+            <button class="delete-btn" data-id="${task.id}">Delete</button>
         `;
          todoList.appendChild(li); // Add to the <ul>
     });
-    // Step 4: Update the task count
-    updateTaskCount();
+    // update task count function
+    function updateTaskCount() {
+        const totalTask = tasks.length;
+        const activeTask = tasks.filter(task => !task.completed).length;
+        const completedTask = tasks.filter(task => task.completed).length;
+        // update the text content of the task count element
+        taskCount.textContent = `Total: ${totalTask} | Active: ${activeTask} | Completed: ${completedTask}`;
+    };
+    updateTaskCount(); 
 }
-// Step 4: Handle checkbox toggling
+
 todoList.addEventListener('change', function(e) {
     // Check if the clicked element has the 'toggle' class (the checkbox)
     if (e.target.classList.contains('toggle')) {
@@ -68,6 +75,7 @@ todoList.addEventListener('change', function(e) {
             renderTasks(); // Refresh the display
         }
     }
+    // if edit button was clicked
     if (e.target.classList.contains('edit-btn')) {
         const id = parseInt(e.target.getAttribute('data-id'));
         const task = tasks.find(task => task.id === id);
@@ -76,7 +84,7 @@ todoList.addEventListener('change', function(e) {
         // Create an input box pre-filled with task text
         const li = e.target.parentElement;
         const inputBox = document.createElement('input');
-        inputVox.type = 'text';
+        inputBox.type = 'text';
         inputBox.value = task.text;
         inputBox.classList.add('edit-input');
         // Replace the task text span with the input
@@ -88,7 +96,8 @@ todoList.addEventListener('change', function(e) {
         e.target.classList.add('save-btn');
     }
     // If Save button was clicked
-    else if (e.targey.classList.contains('save-btn')) {
+    else if (e.target.classList.contains('save-btn')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
         const task = tasks.find(task => task.id === id);
         if (!task) return;
         // Get the new text from the input box
@@ -102,6 +111,7 @@ todoList.addEventListener('change', function(e) {
         // Switch back to render mode
         renderTasks();
     }
+    // If Delete button was clicked
     else if (e.target.classList.contains('delete-btn')) {
         const id = parseInt(e.target.getAttribute('data-id'));
         // Delete the task
@@ -109,5 +119,16 @@ todoList.addEventListener('change', function(e) {
         // Re-render the list and update counts
         renderTasks();
     }
-
 });
+// add tab switching functionality
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Step 1: Update the currentTab value
+        currentTab = tab.getAttribute('data-tab');
+        // Step 2: Update active button appearance
+        tabs.forEach(t => t.classList.remove('active')); // remove active from all
+        tab.classList.add('active'); // add active to the clicked one
+        // Step 3: Re-render the task list for this tab
+        renderTasks();
+    })
+})

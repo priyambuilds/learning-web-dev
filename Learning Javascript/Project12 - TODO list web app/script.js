@@ -83,5 +83,31 @@ todoList.addEventListener('change', function(e) {
         const textSpan = li.querySelector('.task-text');
         li.replaceChild(inputBox, textSpan)
         // Change Edit button to Save
-        
+        e.target.textContent = 'Save';
+        e.target.classList.remove('edit-btn');
+        e.target.classList.add('save-btn');
+    }
+    // If Save button was clicked
+    else if (e.targey.classList.contains('save-btn')) {
+        const task = tasks.find(task => task.id === id);
+        if (!task) return;
+        // Get the new text from the input box
+        const li = e.target.parentElement;
+        const inputBox = li.querySelector('.edit-input');
+        const newText = inputBox.value.trim();
+        // Update the task text if it's not empty
+        if (newText) {
+            task.text = newText;
+        }
+        // Switch back to render mode
+        renderTasks();
+    }
+    else if (e.target.classList.contains('delete-btn')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        // Delete the task
+        tasks = tasks.filter(task => task.id !== id);
+        // Re-render the list and update counts
+        renderTasks();
+    }
+
 });

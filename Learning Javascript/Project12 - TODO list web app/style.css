@@ -185,6 +185,17 @@ h1{
     justify-content: space-between;
     margin-bottom: 20px;
 }
+input[type="checkbox"] {
+appearance: auto;
+-webkit-appearance: checkbox;
+-moz-appearance: checkbox;
+width: 16px;
+height: 16px;
+cursor: pointer;
+}
+.task-left input[type="checkbox"] {
+margin-right: 8px;
+}
 #todo-input{
     width: 70%;
     padding: 10px;
@@ -360,6 +371,18 @@ h1{
     outline: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     font-family: 'Arial', sans-serif;
+}
+.task-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.task-actions {
+    display: flex;
+    gap: 5px;
 }
 .edit-btn{
     background-color: #ffa500;

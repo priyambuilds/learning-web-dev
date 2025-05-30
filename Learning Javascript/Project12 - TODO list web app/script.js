@@ -31,95 +31,100 @@ addBtn.addEventListener('click', ()=>{
 })
 // Step 3: Create a function to render tasks
 function renderTasks() {
-    // Step 1: Clear the current task list
+    // Clear the current task list
     todoList.innerHTML = '';
-    // Step 2: Filter tasks based on current tab
+
+    // Filter tasks based on the selected tab
     let filteredTasks = tasks;
     if (currentTab === 'active') {
         filteredTasks = tasks.filter(task => !task.completed);
     } else if (currentTab === 'completed') {
-        filteredTasks = tasks.filter(task => task.completed)
+        filteredTasks = tasks.filter(task => task.completed);
     }
-    // Step 3: Loop through each task and create a list item
+
+    // Create and append task items
     filteredTasks.forEach(task => {
-        const li = document.createElement('li'); // Create <li> element
-        li.innerHTML = `
-            <input type="checkbox" class="toggle" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
-            <span class="task-text ${task.completed ? 'completed' : ''}" >${task.text}</span>
-            <button class="edit-btn" data-id="${task.id}">Edit</button>
-            <button class="delete-btn" data-id="${task.id}">Delete</button>
-        `;
-         todoList.appendChild(li); // Add to the <ul>
-    });
-    // update task count function
-    function updateTaskCount() {
-        const totalTask = tasks.length;
-        const activeTask = tasks.filter(task => !task.completed).length;
-        const completedTask = tasks.filter(task => task.completed).length;
-        // update the text content of the task count element
-        taskCount.textContent = `Total: ${totalTask} | Active: ${activeTask} | Completed: ${completedTask}`;
-    };
-    updateTaskCount(); 
-}
-
-todoList.addEventListener('change', function(e) {
-    // Check if the clicked element has the 'toggle' class (the checkbox)
-    if (e.target.classList.contains('toggle')) {
-        // Get the task ID from the data-id attribute
-        const id = parseInt(e.target.getAttribute('data-id'));
-        // Find the task object in the tasks array
-        const task = tasks.find(task => task.id === id);
-        // If task is found, toggle its 'completed' status
-        if (task) {
-            task.completed = e.target.checked; // true if checkbox is checked
-            renderTasks(); // Refresh the display
+        const li = document.createElement('li');
+        li.classList.add('task-item');
+        if (task.completed) {
+            li.classList.add('completed');
         }
-    }
-    // if edit button was clicked
-    if (e.target.classList.contains('edit-btn')) {
+
+        li.innerHTML = `
+            <label class="task-left">
+                <input type="checkbox" class="toggle" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
+                <span class="task-text ${task.completed ? 'completed' : ''}">${task.text}</span>
+            </label>
+            <div class="task-actions">
+                <button class="edit-btn" data-id="${task.id}">Edit</button>
+                <button class="delete-btn" data-id="${task.id}">Delete</button>
+            </div>
+        `;
+        todoList.appendChild(li);
+    });
+
+    // Update task count
+    updateTaskCount();
+}
+function updateTaskCount() {
+    const totalTask = tasks.length;
+    const activeTask = tasks.filter(task => !task.completed).length;
+    const completedTask = tasks.filter(task => task.completed).length;
+    taskCount.textContent = `Total: ${totalTask} | Active: ${activeTask} | Completed: ${completedTask}`;
+}
+todoList.addEventListener('click', function (e) {
+    const id = parseInt(e.target.getAttribute('data-id'));
+    const task = tasks.find(task => task.id === id);
+    if (!task) return;
+    else if (e.target.classList.contains('toggle')) {
         const id = parseInt(e.target.getAttribute('data-id'));
         const task = tasks.find(task => task.id === id);
-        if (!task) return;
+        if (task) {
+            task.completed = !task.completed;
+            renderTasks();
+        }
+        return; // exit early so it doesn't fall through to Edit/Delete
+    }
+    // If Edit button is clicked
+    if (e.target.classList.contains('edit-btn')) {
+        const li = e.target.closest('li');
 
-        // Create an input box pre-filled with task text
-        const li = e.target.parentElement;
         const inputBox = document.createElement('input');
         inputBox.type = 'text';
         inputBox.value = task.text;
         inputBox.classList.add('edit-input');
-        // Replace the task text span with the input
-        const textSpan = li.querySelector('.task-text');
-        li.replaceChild(inputBox, textSpan)
+
+        // Replace the task text span with the input box
+        const taskLeft = li.querySelector('.task-left');
+        taskLeft.innerHTML = '';
+        taskLeft.appendChild(inputBox);
+
         // Change Edit button to Save
         e.target.textContent = 'Save';
         e.target.classList.remove('edit-btn');
         e.target.classList.add('save-btn');
     }
-    // If Save button was clicked
+
+    // If Save button is clicked
     else if (e.target.classList.contains('save-btn')) {
-        const id = parseInt(e.target.getAttribute('data-id'));
-        const task = tasks.find(task => task.id === id);
-        if (!task) return;
-        // Get the new text from the input box
-        const li = e.target.parentElement;
+        const li = e.target.closest('li');
         const inputBox = li.querySelector('.edit-input');
         const newText = inputBox.value.trim();
-        // Update the task text if it's not empty
+
         if (newText) {
             task.text = newText;
         }
-        // Switch back to render mode
+
         renderTasks();
     }
-    // If Delete button was clicked
+
+    // If Delete button is clicked
     else if (e.target.classList.contains('delete-btn')) {
-        const id = parseInt(e.target.getAttribute('data-id'));
-        // Delete the task
-        tasks = tasks.filter(task => task.id !== id);
-        // Re-render the list and update counts
+        tasks = tasks.filter(t => t.id !== id);
         renderTasks();
     }
 });
+
 // add tab switching functionality
 tabs.forEach(tab => {
     tab.addEventListener('click', () => {

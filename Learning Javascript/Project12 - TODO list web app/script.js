@@ -10,21 +10,13 @@ let tasks = [];             // An array to store task objects
 let currentTab = 'all';     // This tells which tab is currently selected: all, active, or completed
 let taskIdCounter = 0;      // This will help assign a unique ID to each task
 
-/*
-We’ll store each task as an object with the following structure:
-{
-  id: 0,                 // unique ID
-  text: "Buy groceries", // the task description
-  completed: false       // whether it's done or not
-}
-*/
-
 addBtn.addEventListener('click', ()=>{
     // Get input value and remove leading/trailing spaces
     const Text = input.value.trim();
     // Step 1: Ignore if the input is empty
     if (Text === '') return;
     // Step 2: Create a task object
+    // We’ll store each task as an object with the following structure:
     const newTask = {
         id: taskIdCounter++,  // Assign a unique ID
         text: text,           // Save the task text
@@ -62,3 +54,34 @@ function renderTasks() {
     // Step 4: Update the task count
     updateTaskCount();
 }
+// Step 4: Handle checkbox toggling
+todoList.addEventListener('change', function(e) {
+    // Check if the clicked element has the 'toggle' class (the checkbox)
+    if (e.target.classList.contains('toggle')) {
+        // Get the task ID from the data-id attribute
+        const id = parseInt(e.target.getAttribute('data-id'));
+        // Find the task object in the tasks array
+        const task = tasks.find(task => task.id === id);
+        // If task is found, toggle its 'completed' status
+        if (task) {
+            task.completed = e.target.checked; // true if checkbox is checked
+            renderTasks(); // Refresh the display
+        }
+    }
+    if (e.target.classList.contains('edit-btn')) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        const task = tasks.find(task => task.id === id);
+        if (!task) return;
+
+        // Create an input box pre-filled with task text
+        const li = e.target.parentElement;
+        const inputBox = document.createElement('input');
+        inputVox.type = 'text';
+        inputBox.value = task.text;
+        inputBox.classList.add('edit-input');
+        // Replace the task text span with the input
+        const textSpan = li.querySelector('.task-text');
+        li.replaceChild(inputBox, textSpan)
+        // Change Edit button to Save
+        
+});
